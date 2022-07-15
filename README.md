@@ -1,16 +1,91 @@
-# Web security
-- To get the actual parameters of the database tables, run script from the resources/init_db.sql file in the Workbench.
-- Add two more fields (`login` and `password`) to your `Driver` class.
-  We will simplify the task, and our Driver will behave as User.
-- Modify the required JSP pages and corresponding controllers to support two new fields: `login` and `password`.
-- Modify `DriverDaoImpl` and `CarDaoImpl` to fetch all columns for drivers, including new ones.
-- Create new AuthenticationService with method ```Driver login(String login, String password);```
-- Create new method ```Optional<Driver> findByLogin(String login)``` in DriverDao and DriverService.
-- Use your new method _findByLogin_ in the ```authService.login(login, password)``` method to identify the user based on the login
-- Implement `LoginController` with corresponding JSP page
-- Implement `LogoutController` and add a corresponding button on all pages where it should be
-- Implement user authentication based on HttpSession and filters. Only `LoginController` and `CreateDriverController` should be available for non authenticated users.
-- Having information about currently logged-in user (e.g. driver), please implement the following controller `GetMyCurrentCarsController`.
-  This controller is responsible for displaying the list of cars for currently logged driver (get info about the driver from the HttpSession).
-  Hint: Use existed JSP page for displaying all cars.
+# Taxi-Service
+---
+### Project description:
 
+A simple web project describing the work of a taxi company. It is built on SOLID principles and uses create, read and other CRUD operations.
+
+---
+
+### Features :
+<li>
+Registration like a driver
+<li>
+Authentication like a driver
+<li>
+Create new driver
+<li>
+Display all drivers
+<li>
+Delete driver
+<li>
+Create new manufacturer
+<li>
+Display all manufacturers
+<li>
+Delete manufacturer
+<li>
+Create new car
+<li>
+Display all cars
+<li>
+Delete car
+<li>
+Adding driver to car.
+<li>
+Login and Logout
+
+-----------------
+### Project based on 3-layer architecture:
+<li>
+Data access layer (DAO)
+<li>
+Application layer (services) all classes of the "Service" layer are covered with tests
+<li>
+Presentation layer (controllers)
+
+----
+### Technologies
+<li>
+Java 11
+<li>
+MySQL
+<li>
+JDBC
+<li>
+Apache Maven
+<li>
+Apache Tomcat
+<li>
+Javax Servlet
+<li>
+JSP
+<li>
+JSTL
+<li>
+HTML/CSS
+<li>
+Log4j
+<li>
+JUnit5
+<li>
+Mockito
+<li>
+Checkstyle plugin
+<li>
+Git
+
+----
+
+### Build and run the project:
+<li>
+Clone this repository;
+<li>
+Install MySQL;
+<li>
+Configure /src/main/java/taxi/util/ConnectionUtil.java with your URL, USERNAME, PASSWORD, JDBC_DRIVER;
+<li>
+Run SQL script /src/main/resources/init_db.sql to creating a schema and tables for the project;
+<li>
+Install Tomcat of 9.x.xx version
+<li>
+Run project
