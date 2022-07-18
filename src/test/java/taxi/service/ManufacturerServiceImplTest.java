@@ -2,7 +2,6 @@ package taxi.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +15,6 @@ import taxi.dao.ManufacturerDao;
 import taxi.model.Manufacturer;
 
 class ManufacturerServiceImplTest {
-    private static final Manufacturer ANOTHER_MANUFACTURER = new Manufacturer();
     private ManufacturerService manufacturerService;
     private ManufacturerDao manufacturerDao;
     private Manufacturer manufacturer;
@@ -42,29 +40,12 @@ class ManufacturerServiceImplTest {
     }
 
     @Test
-    void create_Error_Wrong_Manufacturer_Not_Ok() {
-        Mockito.when(manufacturerDao.create(manufacturer)).thenReturn(manufacturer);
-        Manufacturer actual = manufacturerService.create(manufacturer);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_MANUFACTURER, actual);
-    }
-
-    @Test
     void get_Ok() {
         Mockito.when(manufacturerDao.get(manufacturer.getId()))
                 .thenReturn(Optional.of(manufacturer));
         Manufacturer actual = manufacturerService.get(manufacturer.getId());
         assertNotNull(actual);
         assertEquals(manufacturer, actual);
-    }
-
-    @Test
-    void get_Error_Wrong_Manufacturer_Not_Ok() {
-        Mockito.when(manufacturerDao.get(manufacturer.getId()))
-                .thenReturn(Optional.of(manufacturer));
-        Manufacturer actual = manufacturerService.get(manufacturer.getId());
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_MANUFACTURER, actual);
     }
 
     @Test
@@ -84,14 +65,6 @@ class ManufacturerServiceImplTest {
     }
 
     @Test
-    void update_Error_Wrong_Manufacturer_Not_Ok() {
-        Mockito.when(manufacturerDao.update(manufacturer)).thenReturn(manufacturer);
-        Manufacturer actual = manufacturerDao.update(manufacturer);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_MANUFACTURER, actual);
-    }
-
-    @Test
     void delete_Ok() {
         Mockito.when(manufacturerDao.delete(manufacturer.getId())).thenReturn(true);
         boolean actual = manufacturerDao.delete(manufacturer.getId());
@@ -99,7 +72,7 @@ class ManufacturerServiceImplTest {
     }
 
     @Test
-    void delete_Not_Ok() {
+    void delete_Return_False_Not_Ok() {
         Mockito.when(manufacturerDao.delete(manufacturer.getId())).thenReturn(false);
         boolean actual = manufacturerDao.delete(manufacturer.getId());
         assertFalse(actual);

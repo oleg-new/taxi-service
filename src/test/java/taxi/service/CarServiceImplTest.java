@@ -17,7 +17,6 @@ import taxi.model.Car;
 import taxi.model.Driver;
 
 class CarServiceImplTest {
-    private static final Car ANOTHER_CAR = new Car();
     private CarService carService;
     private CarDao carDao;
     private Car car;
@@ -62,27 +61,11 @@ class CarServiceImplTest {
     }
 
     @Test
-    void create_Error_Wrong_Car_Not_Ok() {
-        Mockito.when(carDao.create(car)).thenReturn(car);
-        Car actual = carService.create(car);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_CAR,actual);
-    }
-
-    @Test
     void get_Ok() {
         Mockito.when(carDao.get(car.getId())).thenReturn(Optional.of(car));
         Car actual = carService.get(2L);
         assertNotNull(actual);
         assertEquals(car, actual);
-    }
-
-    @Test
-    void get_Error_Wrong_Car_Not_Ok() {
-        Mockito.when(carDao.get(car.getId())).thenReturn(Optional.of(car));
-        Car actual = carService.get(car.getId());
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_CAR, actual);
     }
 
     @Test
@@ -99,14 +82,6 @@ class CarServiceImplTest {
         Car actual = carDao.update(car);
         assertNotNull(actual);
         assertEquals(car, actual);
-    }
-
-    @Test
-    void update_Error_Wrong_Car_Not_Ok() {
-        Mockito.when(carDao.update(car)).thenReturn(car);
-        Car actual = carDao.update(car);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_CAR, actual);
     }
 
     @Test

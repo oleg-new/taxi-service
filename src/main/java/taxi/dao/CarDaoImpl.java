@@ -32,6 +32,7 @@ public class CarDaoImpl implements CarDao {
                 PreparedStatement createCarStatement =
                         connection.prepareStatement(
                              insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+            logger.info("Method 'create' was called. Parameters on call: car = {}", car);
             createCarStatement.setString(1, car.getModel());
             createCarStatement.setLong(2, car.getManufacturer().getId());
             createCarStatement.executeUpdate();
@@ -39,7 +40,6 @@ public class CarDaoImpl implements CarDao {
             if (resultSet.next()) {
                 car.setId(resultSet.getObject(1, Long.class));
             }
-            logger.info("Method 'create' was called. Parameters on call: car = {}", car);
         } catch (SQLException e) {
             logger.info("Car creation error. Params: car = {}", car);
             throw new DataProcessingException("Can't create car " + car, e);

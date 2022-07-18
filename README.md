@@ -71,8 +71,7 @@ JUnit5
 Mockito
 <li>
 Checkstyle plugin
-<li>
-Git
+
 
 ----
 
@@ -82,9 +81,9 @@ Clone this repository;
 <li>
 Install MySQL;
 <li>
-Configure /src/main/java/taxi/util/ConnectionUtil.java with your URL, USERNAME, PASSWORD, JDBC_DRIVER;
+Fill in /src/main/java/taxi/util/ConnectionUtil.java with your URL, USERNAME, PASSWORD, JDBC_DRIVER;
 <li>
-Run SQL script /src/main/resources/init_db.sql to creating a schema and tables for the project;
+Run SQL script /src/main/resources/init_db.sql to create a schema and tables for the project;
 <li>
 Install Tomcat of 9.x.xx version
 <li>

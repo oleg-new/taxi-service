@@ -25,13 +25,13 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement createManufacturerStatement
                         = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            logger.info("Method 'create' was called. "
+                    + "Parameters on call: manufacturer = {}", manufacturer);
             setUpdate(createManufacturerStatement, manufacturer).executeUpdate();
             ResultSet resultSet = createManufacturerStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 manufacturer.setId(resultSet.getObject(1, Long.class));
             }
-            logger.info("Method 'create' was called. "
-                    + "Parameters on call: manufacturer = {}", manufacturer);
             return manufacturer;
         } catch (SQLException e) {
             logger.info("Manufacturer creation error. Params: manufacturer = {}", manufacturer);

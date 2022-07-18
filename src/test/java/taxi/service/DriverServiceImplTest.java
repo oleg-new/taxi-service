@@ -2,7 +2,6 @@ package taxi.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +15,6 @@ import taxi.dao.DriverDao;
 import taxi.model.Driver;
 
 class DriverServiceImplTest {
-    private static final Driver ANOTHER_DRIVER = new Driver();
     private DriverService driverService;
     private DriverDao driverDao;
     private Driver driver;
@@ -43,23 +41,7 @@ class DriverServiceImplTest {
     }
 
     @Test
-    void create_Error_Not_() {
-        Mockito.when(driverDao.create(driver)).thenReturn(driver);
-        Driver actual = driverDao.create(driver);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_DRIVER, actual);
-    }
-
-    @Test
     void get_Ok() {
-        Mockito.when(driverDao.get(driver.getId())).thenReturn(Optional.of(driver));
-        Driver actual = driverService.get(driver.getId());
-        assertNotNull(actual);
-        assertEquals(driver, actual);
-    }
-
-    @Test
-    void get_Error_Wrong_Driver_Not_Ok() {
         Mockito.when(driverDao.get(driver.getId())).thenReturn(Optional.of(driver));
         Driver actual = driverService.get(driver.getId());
         assertNotNull(actual);
@@ -80,14 +62,6 @@ class DriverServiceImplTest {
         Driver actual = driverDao.update(driver);
         assertNotNull(actual);
         assertEquals(driver, actual);
-    }
-
-    @Test
-    void update_Error_Wrong_Driver_Not_Ok() {
-        Mockito.when(driverDao.update(driver)).thenReturn(driver);
-        Driver actual = driverDao.update(driver);
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_DRIVER, actual);
     }
 
     @Test
@@ -112,11 +86,4 @@ class DriverServiceImplTest {
         assertEquals(driver, actual.get());
     }
 
-    @Test
-    void findByLogin_Wrong_Driver_Not_Ok() {
-        Mockito.when(driverDao.findByLogin(driver.getLogin())).thenReturn(Optional.of(driver));
-        Optional<Driver> actual = driverDao.findByLogin(driver.getLogin());
-        assertNotNull(actual);
-        assertNotEquals(ANOTHER_DRIVER, actual.get());
-    }
 }

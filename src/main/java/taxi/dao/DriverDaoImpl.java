@@ -26,6 +26,7 @@ public class DriverDaoImpl implements DriverDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement createDriverStatement = connection.prepareStatement(query,
                         Statement.RETURN_GENERATED_KEYS)) {
+            logger.info("Method 'create' was called. Parameters on call: driver = {}", driver);
             createDriverStatement.setString(1, driver.getName());
             createDriverStatement.setString(2, driver.getLicenseNumber());
             createDriverStatement.setString(3, driver.getLogin());
@@ -35,7 +36,6 @@ public class DriverDaoImpl implements DriverDao {
             if (resultSet.next()) {
                 driver.setId(resultSet.getObject(1, Long.class));
             }
-            logger.info("Method 'create' was called. Parameters on call: driver = {}", driver);
             return driver;
         } catch (SQLException e) {
             logger.info("Driver creation error. Params: driver = {}", driver);
