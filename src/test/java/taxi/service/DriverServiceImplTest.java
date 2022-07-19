@@ -72,7 +72,7 @@ class DriverServiceImplTest {
     }
 
     @Test
-    void delete_Error_Not_Ok() {
+    void delete_Return_False_Not_Ok() {
         Mockito.when(driverDao.delete(driver.getId())).thenReturn(false);
         boolean actual = driverDao.delete(driver.getId());
         assertFalse(actual);

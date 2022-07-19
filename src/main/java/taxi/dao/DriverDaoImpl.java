@@ -38,7 +38,6 @@ public class DriverDaoImpl implements DriverDao {
             }
             return driver;
         } catch (SQLException e) {
-            logger.info("Driver creation error. Params: driver = {}", driver);
             throw new DataProcessingException("Couldn't create "
                     + driver + ". ", e);
         }
@@ -49,16 +48,15 @@ public class DriverDaoImpl implements DriverDao {
         String query = "SELECT * FROM drivers WHERE id = ? AND is_deleted = FALSE";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement getDriverStatement = connection.prepareStatement(query)) {
+            logger.info("Method 'get' was called. Parameters on call: driver_id = {}", id);
             getDriverStatement.setLong(1, id);
             ResultSet resultSet = getDriverStatement.executeQuery();
             Driver driver = null;
             if (resultSet.next()) {
                 driver = parseDriverFromResultSet(resultSet);
             }
-            logger.info("Method 'get' was called. Parameters on call: driver_id = {}", id);
             return Optional.ofNullable(driver);
         } catch (SQLException e) {
-            logger.info("Couldn't get driver by id. Parameters on call: driver_id = {}", id);
             throw new DataProcessingException("Couldn't get driver by id " + id, e);
         }
     }
@@ -69,14 +67,13 @@ public class DriverDaoImpl implements DriverDao {
         List<Driver> drivers = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement getAllDriversStatement = connection.prepareStatement(query)) {
+            logger.info("Method 'getAll' was called.");
             ResultSet resultSet = getAllDriversStatement.executeQuery();
             while (resultSet.next()) {
                 drivers.add(parseDriverFromResultSet(resultSet));
             }
-            logger.info("Method 'getAll' was called.");
             return drivers;
         } catch (SQLException e) {
-            logger.info("Couldn't get a list of drivers from driversDB.");
             throw new DataProcessingException("Couldn't get a list of drivers from driversDB.",
                     e);
         }
@@ -90,16 +87,15 @@ public class DriverDaoImpl implements DriverDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement updateDriverStatement
                         = connection.prepareStatement(query)) {
+            logger.info("Method 'update' was called. Parameters on call: driver = {}", driver);
             updateDriverStatement.setString(1, driver.getName());
             updateDriverStatement.setString(2, driver.getLicenseNumber());
             updateDriverStatement.setString(3, driver.getLogin());
             updateDriverStatement.setString(4, driver.getPassword());
             updateDriverStatement.setLong(5, driver.getId());
             updateDriverStatement.executeUpdate();
-            logger.info("Method 'update' was called. Parameters on call: driver = {}", driver);
             return driver;
         } catch (SQLException e) {
-            logger.info("Couldn't update drivers. Parameters on call: driver = {}", driver);
             throw new DataProcessingException("Couldn't update "
                     + driver + " in driversDB.", e);
         }
@@ -110,11 +106,10 @@ public class DriverDaoImpl implements DriverDao {
         String query = "UPDATE drivers SET is_deleted = TRUE WHERE id = ?";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement deleteDriverStatement = connection.prepareStatement(query)) {
+            logger.info("Method 'delete' was called. Parameters on call: driver_id = {}", id);
             deleteDriverStatement.setLong(1, id);
-            logger.info("Method 'update' was called. Parameters on call: driver_id = {}", id);
             return deleteDriverStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.info("Couldn't delete driver with id. Parameters on call: driver_id = {}", id);
             throw new DataProcessingException("Couldn't delete driver with id " + id, e);
         }
     }
@@ -124,16 +119,15 @@ public class DriverDaoImpl implements DriverDao {
         String query = "SELECT * FROM drivers WHERE login = ?;";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement findDriverStatement = connection.prepareStatement(query)) {
+            logger.info("Method 'findByLogin' was called. Parameters on call: login = {}", login);
             findDriverStatement.setString(1, login);
             ResultSet resultSet = findDriverStatement.executeQuery();
             Driver driver = null;
             if (resultSet.next()) {
                 driver = parseDriverFromResultSet(resultSet);
             }
-            logger.info("Method 'findByLogin' was called. Parameters on call: login = {}", login);
             return Optional.ofNullable(driver);
         } catch (SQLException e) {
-            logger.info("Can't find driver with login. Parameters on call: login = {}", login);
             throw new DataProcessingException("Can't find driver with login " + login, e);
         }
     }

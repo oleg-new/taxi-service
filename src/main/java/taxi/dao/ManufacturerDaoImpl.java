@@ -34,7 +34,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
             }
             return manufacturer;
         } catch (SQLException e) {
-            logger.info("Manufacturer creation error. Params: manufacturer = {}", manufacturer);
             throw new DataProcessingException("Couldn't create manufacturer. " + manufacturer, e);
         }
     }
@@ -53,7 +52,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
             logger.info("Method 'get' was called. Parameters on call: manufacturer_id = {}", id);
             return Optional.ofNullable(manufacturer);
         } catch (SQLException e) {
-            logger.info("Couldn't get manufacturer by id. Params: manufacturer_id = {}", id);
             throw new DataProcessingException("Couldn't get manufacturer by id " + id, e);
         }
     }
@@ -72,7 +70,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
             logger.info("Method 'getAll' was called.");
             return manufacturers;
         } catch (SQLException e) {
-            logger.info("Couldn't get a list of manufacturers from manufacturers table.");
             throw new DataProcessingException("Couldn't get a list of manufacturers "
                     + "from manufacturers table. ", e);
         }
@@ -90,7 +87,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
             logger.info("Method 'update' was called.Params: manufacturer = {}", manufacturer);
             return manufacturer;
         } catch (SQLException e) {
-            logger.info("Couldn't update a manufacturer.Params: manufacturer = {}", manufacturer);
             throw new DataProcessingException("Couldn't update a manufacturer "
                     + manufacturer, e);
         }
@@ -106,7 +102,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
             logger.info("Method 'delete' was called.Params: manufacturer_id = {}", id);
             return deleteManufacturerStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.info("Couldn't delete a manufacturer by id.Params: manufacturer_id = {}", id);
             throw new DataProcessingException("Couldn't delete a manufacturer by id " + id, e);
         }
     }

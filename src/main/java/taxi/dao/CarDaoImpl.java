@@ -41,7 +41,6 @@ public class CarDaoImpl implements CarDao {
                 car.setId(resultSet.getObject(1, Long.class));
             }
         } catch (SQLException e) {
-            logger.info("Car creation error. Params: car = {}", car);
             throw new DataProcessingException("Can't create car " + car, e);
         }
         insertAllDrivers(car);
@@ -69,7 +68,6 @@ public class CarDaoImpl implements CarDao {
             }
             logger.info("Method 'get' was called. Parameters on call: car_id = {}", id);
         } catch (SQLException e) {
-            logger.info("Can't get car by id. Parameters on call: car_id = {}", id);
             throw new DataProcessingException("Can't get car by id: " + id, e);
         }
         if (car != null) {
@@ -98,7 +96,6 @@ public class CarDaoImpl implements CarDao {
             }
             logger.info("Method 'getAll' was called.");
         } catch (SQLException e) {
-            logger.info("Can't get all cars.");
             throw new DataProcessingException("Can't get all cars", e);
         }
         cars.forEach(car -> car.setDrivers(getAllDriversByCarId(car.getId())));
@@ -118,7 +115,6 @@ public class CarDaoImpl implements CarDao {
             updateCarStatement.executeUpdate();
             logger.info("Method 'update' was called. Parameters on call: car = {}", car);
         } catch (SQLException e) {
-            logger.info("Can't update car. Parameters on call: car = {}", car);
             throw new DataProcessingException("Can't update car " + car, e);
         }
         deleteAllDriversExceptList(car);
@@ -137,7 +133,6 @@ public class CarDaoImpl implements CarDao {
             logger.info("Method 'delete' was called. Parameters on call: car_id = {}", id);
             return deleteCarStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.info("Can't delete car by id. Parameters on call: car_id = {}", id);
             throw new DataProcessingException("Can't delete car by id " + id, e);
         }
     }
@@ -167,8 +162,6 @@ public class CarDaoImpl implements CarDao {
                 cars.add(parseCarFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            logger.info("Can't get all cars. Parameters on call: driver_id = {}", driverId);
-
             throw new DataProcessingException("Can't get all cars", e);
         }
         cars.forEach(car -> car.setDrivers(getAllDriversByCarId(car.getId())));

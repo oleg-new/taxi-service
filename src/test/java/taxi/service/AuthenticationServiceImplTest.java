@@ -36,7 +36,7 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
-    void password_Error_Not_Ok()throws AuthenticationException {
+    void login_password_Error_Not_Ok()throws AuthenticationException {
         Mockito.when(driverService.findByLogin(driver.getLogin()))
                 .thenReturn(Optional.ofNullable(driver));
         assertThrows(AuthenticationException.class,

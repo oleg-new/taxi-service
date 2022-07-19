@@ -17,6 +17,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationServiceImpl(DriverService driverService) {
         this.driverService = driverService;
     }
+/*
+    an empty constructor is required for the injector to work
+*/
 
     public AuthenticationServiceImpl() {
 
@@ -29,7 +32,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (driver.isPresent() && driver.get().getPassword().equals(password)) {
             return driver.get();
         }
-        logger.info("User login error. Params: login = {}", login);
         throw new AuthenticationException("Login or password was incorrect!");
     }
 }

@@ -92,7 +92,7 @@ class CarServiceImplTest {
     }
 
     @Test
-    void delete_Error_Not_Ok() {
+    void delete_Return_False_Not_Ok() {
         Mockito.when(carDao.delete(car.getId())).thenReturn(false);
         boolean actual = carDao.delete(car.getId());
         assertFalse(actual);
